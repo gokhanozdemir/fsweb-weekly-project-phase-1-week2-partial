@@ -95,10 +95,11 @@ const productData = {
   properties: [
     // radio, image, dropdown, color, 
     // price Modifier nereye tanımlanabilir?
-    { type: "radio", user: ["Çocuk", "Yetişkin"] },
-    { type: "radio", sizes: ["S", "M", "L", "XL", "XXL", "XXXL"], },
+    { type: "radio", variants: ["Çocuk", "Yetişkin"] },
+    { type: "color", variants: ["#1b9132", "#f36180", "#40bbdf", "#ded068", "#5e3999", "#2e1545"] },
+    { type: "radio", variants: ["S", "M", "L", "XL", "XXL", "XXXL"], },
     { type: "image", variants: variantsData },
-    { type: "dropdown", delivery: ["Kargo", "Yurtiçi Kargo", "Aras Kargo", "MNG Kargo"] }
+    { type: "dropdown", variants: ["Kargo", "Yurtiçi Kargo", "Aras Kargo", "MNG Kargo"] }
   ],
   sizes: ["S", "M", "L", "XL", "XXL", "XXXL"]
 }
@@ -106,22 +107,22 @@ const productData = {
 function App() {
   const [product, setProduct] = useState(productData)
   const [variant, setVariant] = useState(variantsData[0])
-  const [size, setSize] = useState(product.sizes[0])
+  // const [size, setSize] = useState(product.sizes[0])
   const [priceCalculation, setPriceCalculation] = useState(product.price)
 
-  function calculatePrice(basePrice, selectedVariant, selectedSize) {
-    let price = basePrice
-    if (selectedVariant.double) {
-      price = price * 1.05
-    }
-    price = price + (product.sizes.indexOf(selectedSize) * 0.1 * price)
-    return price
-  }
+  // function calculatePrice(basePrice, selectedVariant, selectedSize) {
+  //   let price = basePrice
+  //   if (selectedVariant.double) {
+  //     price = price * 1.05
+  //   }
+  //   price = price + (product.sizes.indexOf(selectedSize) * 0.1 * price)
+  //   return price
+  // }
 
-  useEffect(() => {
-    const cal = calculatePrice(product.price, variant, size)
-    setPriceCalculation(cal.toFixed(2))
-  }, [variant, size])
+  // useEffect(() => {
+  //   const cal = calculatePrice(product.price, variant, size)
+  //   setPriceCalculation(cal.toFixed(2))
+  // }, [variant, size])
 
   return (
     <>
@@ -136,23 +137,36 @@ function App() {
             <h2>{product.title} - {variant.title}</h2>
             <div>${priceCalculation}</div>
             <div>
+              {
+                product.properties.map((p, ind) => {
+                  return (<div key={ind}>
 
-              <p>Renk Seçimi</p>
-              {(product.properties[2].type === 'image') && <div className='color-variants'>
-                {product.properties[2].variants.map((v, ind) => (
-                  <img key={ind} onClick={() => setVariant(v)} src={`${v.selectorImg}`} alt={`${v.title} renkteki varyasyonu göster`} />
-                ))}
-              </div>}
+                    {p.type === 'radio' && <div>
+                      {p.variants.map((u, ind) => (
+                        <div key={ind}>
+                          <input type="radio" name={p.type} id={u} />
+                          <label htmlFor={u}>{u}</label>
+                        </div>
+                      ))}
+                    </div>}
+                    {p.type === 'image' && <div>
+                      <p>Alternatif Resim Seçimi</p>
+                      {(p.type === 'image') && <div className='color-variants'>
+                        {p.variants.map((v, ind) => (
+                          <img key={ind} onClick={() => setVariant(v)} src={`${v.selectorImg}`} alt={`${v.title} renkteki varyasyonu göster`} />
+                        ))}
+                      </div>}
+                    </div>}
+
+
+                  </div>)
+
+                })
+              }
+
 
             </div>
-            <div>
-              <p>Beden Seçimi</p>
-              <div className='size-variants'>
-                {product.sizes.map((s, ind) => (
-                  <div key={ind} onClick={() => setSize(s)} className={`size ${s === size ? 'selected' : ''}`}>{s}</div>
-                ))}
-              </div>
-            </div>
+
             <div>alan 4</div>
             <div>alan 5</div>
           </div>
