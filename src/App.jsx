@@ -100,8 +100,7 @@ const productData = {
     { type: "radio", variants: ["S", "M", "L", "XL", "XXL", "XXXL"], },
     { type: "image", variants: variantsData },
     { type: "dropdown", variants: ["Kargo", "Yurtiçi Kargo", "Aras Kargo", "MNG Kargo"] }
-  ],
-  sizes: ["S", "M", "L", "XL", "XXL", "XXXL"]
+  ]
 }
 
 function App() {
