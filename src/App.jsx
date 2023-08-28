@@ -95,6 +95,15 @@ function App() {
                       </div>
                     </div>}
 
+                    {/* color selector */}
+                    {prp.type === 'color' && <div>
+                      <h3>{prp.label}</h3>
+                      {prp.variants.map((v, ind) => (
+                        <div key={ind}>
+                          <div style={{ backgroundColor: v.value }}>{v.label}</div>
+                        </div>
+                      ))}
+                    </div>}
 
                   </div>)
 

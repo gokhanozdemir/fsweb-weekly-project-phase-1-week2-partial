@@ -97,9 +97,9 @@ export const productData = {
         },
         {
           value: "navy-lightblue",
-          label: "Lacivert Açık Mavi",
-          imageUrl: "./assets/preview/navy-lightblue.png",
-          buttonImage: "./assets/image-button/navy-lightblue.png",
+          label: "Lacivert Mavi",
+          imageUrl: "./assets/preview/navy-blue.png",
+          buttonImage: "./assets/image-button/navy-blue.png",
           priceModifier: (basePrice) => basePrice * 0.05,
         },
         {
