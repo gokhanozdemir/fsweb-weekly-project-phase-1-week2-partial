@@ -144,10 +144,19 @@ function App() {
                       ))}
                     </div>}
 
-                    <div>
-
-
-                    </div>
+                    {/* dropdown selector */}
+                    {prp.type === 'dropdown' &&
+                      <div className=''>
+                        <label>
+                          <h3>{prp.label}</h3>
+                          <select name={prp.label}>
+                            {prp.variants.map((v, ind) => (
+                              <option key={ind} value={v.value}>{v.label}</option>
+                            ))}
+                          </select>
+                        </label>
+                      </div>
+                    }
 
 
                   </div>)
