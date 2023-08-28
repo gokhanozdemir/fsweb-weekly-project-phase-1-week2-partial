@@ -6,6 +6,8 @@ import green from './assets/color-button/green.png'
 import navyGreen from './assets/color-button/navy-green.png'
 import whiteSchool from './assets/color-button/white-school.png'
 
+import { productData } from './productData'
+
 import './App.css'
 
 const variantsData = [
@@ -89,19 +91,6 @@ const variantsData = [
   },
 
 ]
-const productData = {
-  title: "Kapşonlu Sweatshirt",
-  price: 70,
-  properties: [
-    // radio, image, dropdown, color, 
-    // price Modifier nereye tanımlanabilir?
-    { type: "radio", variants: ["Çocuk", "Yetişkin"] },
-    { type: "color", variants: ["#1b9132", "#f36180", "#40bbdf", "#ded068", "#5e3999", "#2e1545"] },
-    { type: "radio", variants: ["S", "M", "L", "XL", "XXL", "XXXL"], },
-    { type: "image", variants: variantsData },
-    { type: "dropdown", variants: ["Kargo", "Yurtiçi Kargo", "Aras Kargo", "MNG Kargo"] }
-  ]
-}
 
 function App() {
   const [product, setProduct] = useState(productData)
@@ -137,25 +126,28 @@ function App() {
             <div>${priceCalculation}</div>
             <div>
               {
-                product.properties.map((p, ind) => {
+                product.properties.map((prp, ind) => {
                   return (<div key={ind}>
-
-                    {p.type === 'radio' && <div>
-                      {p.variants.map((u, ind) => (
+                    {/*
+                     // TODO 
+                    Burası switch olarak güncellenebilir mi?
+                     */}
+                    {/* radio selector */}
+                    {prp.type === 'radio' && <div>
+                      <h3>{prp.label}</h3>
+                      {prp.variants.map((v, ind) => (
                         <div key={ind}>
-                          <input type="radio" name={p.type} id={u} />
-                          <label htmlFor={u}>{u}</label>
+                          <label htmlFor={v.label}>
+                            <input type="radio" name={prp.label} id={v.label} value={v.value} />
+                            {v.label}</label>
                         </div>
                       ))}
                     </div>}
-                    {p.type === 'image' && <div>
-                      <p>Alternatif Resim Seçimi</p>
-                      {(p.type === 'image') && <div className='color-variants'>
-                        {p.variants.map((v, ind) => (
-                          <img key={ind} onClick={() => setVariant(v)} src={`${v.selectorImg}`} alt={`${v.title} renkteki varyasyonu göster`} />
-                        ))}
-                      </div>}
-                    </div>}
+
+                    <div>
+
+
+                    </div>
 
 
                   </div>)
