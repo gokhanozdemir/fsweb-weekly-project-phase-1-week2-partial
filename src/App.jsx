@@ -1,100 +1,23 @@
 import { useState, useEffect } from 'react'
 
-import beige from './assets/color-button/beige.png'
-import grayWhite from './assets/color-button/gray-white.png'
-import green from './assets/color-button/green.png'
-import navyGreen from './assets/color-button/navy-green.png'
-import whiteSchool from './assets/color-button/white-school.png'
+// import beige from './assets/color-button/beige.png'
+// import grayWhite from './assets/color-button/gray-white.png'
+// import green from './assets/color-button/green.png'
+// import navyGreen from './assets/color-button/navy-green.png'
+// import whiteSchool from './assets/color-button/white-school.png'
 
 import { productData } from './productData'
 
 import './App.css'
 
-const variantsData = [
-  {
-    title: "Bej",
-    previewImg: "beige.png",
-    selectorImg: beige
-  },
-  {
-    title: "Gri Beyaz",
-    previewImg: "gray-white.png",
-    selectorImg: grayWhite,
-    double: true
-  },
-  {
-    title: "Yeşil",
-    previewImg: "green.png",
-    selectorImg: green
-  },
-  {
-    title: "Lacivert Yeşil",
-    previewImg: "navy-green.png",
-    selectorImg: navyGreen,
-    double: true
-  },
-  {
-    title: "Lacivert Okul Markalı",
-    previewImg: "white-school.png",
-    selectorImg: whiteSchool,
-    double: true
-  },
-  {
-    title: "Bej",
-    previewImg: "beige.png",
-    selectorImg: beige
-  },
-  {
-    title: "Gri Beyaz",
-    previewImg: "gray-white.png",
-    selectorImg: grayWhite,
-    double: true
-  },
-  {
-    title: "Yeşil",
-    previewImg: "green.png",
-    selectorImg: green
-  },
-  {
-    title: "Lacivert Yeşil",
-    previewImg: "navy-green.png",
-    selectorImg: navyGreen,
-    double: true
-  },
-  {
-    title: "Lacivert Okul Markalı",
-    previewImg: "white-school.png",
-    selectorImg: whiteSchool,
-    double: true
-  },
-  {
-    title: "Bej",
-    previewImg: "beige.png",
-    selectorImg: beige
-  },
-  {
-    title: "Gri Beyaz",
-    previewImg: "gray-white.png",
-    selectorImg: grayWhite,
-    double: true
-  },
-  {
-    title: "Yeşil",
-    previewImg: "green.png",
-    selectorImg: green
-  },
-  {
-    title: "Lacivert Yeşil",
-    previewImg: "navy-green.png",
-    selectorImg: navyGreen,
-    double: true
-  },
 
-]
 
 function App() {
   const [product, setProduct] = useState(productData)
-  const [variant, setVariant] = useState(variantsData[0])
+  // ilk bulduğum image variantını seçtim ve preview olarak kullandım. 
+  // API da preview'da olacak image'ı bana böyle bir şekilde veriyor varsayıyorum.
+  const previewImage = product.properties.find(prp => prp.type === 'image').variants[0]
+  const [variant, setVariant] = useState(previewImage)
   // const [size, setSize] = useState(product.sizes[0])
   const [priceCalculation, setPriceCalculation] = useState(product.price)
 
@@ -117,7 +40,7 @@ function App() {
       <div className='app-container' >
         <div className='app--panel'>Sol Ana Resim Paneli
           <div className='image-container'>
-            <img src={`./assets/variations/${variant.previewImg}`} alt="" />
+            <img src={`${variant.imageUrl}`} alt={`${product.title} - ${variant.label}`} />
           </div>
         </div>
         <div className='app--panel'>
@@ -157,6 +80,20 @@ function App() {
                         </label>
                       </div>
                     }
+
+                    {/* image selector */}
+                    {prp.type === 'image' && <div>
+                      <h3>{prp.label}</h3>
+                      <div className='color-variants'>
+                        {prp.variants.map((v, ind) => (
+                          <img key={ind}
+                            onClick={() => setVariant(v)}
+                            src={`${v.buttonImage}`}
+                            alt={`${v.label} resmindeki örneği görüntüle`}
+                          />
+                        ))}
+                      </div>
+                    </div>}
 
 
                   </div>)
